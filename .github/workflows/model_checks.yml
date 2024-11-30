@@ -22,17 +22,8 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install torch torchvision
+        pip install -r requirements.txt
 
-    - name: Run Parameter Count Test
-      run: python tests/test_param_count.py
-
-    - name: Check for Batch Normalization
-      run: python tests/test_batchnorm.py
-
-    - name: Check for Dropout
-      run: python tests/test_dropout.py
-
-    - name: Check for Fully Connected Layer or GAP
-      run: python tests/test_gap_fc.py
+    - name: Run Tests
+      run: pytest
 

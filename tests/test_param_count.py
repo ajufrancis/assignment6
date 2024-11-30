@@ -1,20 +1,17 @@
 # tests/test_param_count.py
 
+import unittest
 import torch
-from src.model import Net  # Adjust the path if necessary
 
-def count_parameters(model):
-    return sum(p.numel() for p in model.parameters())
+from src.model import Net  # Relative import within the package
 
-def main():
-    model = Net()
-    total_params = count_parameters(model)
-    print(f"Total Parameters: {total_params}")
-    if total_params > 20000:
-        raise Exception(f"Total parameters exceed 20k! ({total_params})")
-    else:
-        print("Parameter count test passed.")
+class TestParameterCount(unittest.TestCase):
+    def test_param_count(self):
+        model = Net()
+        total_params = sum(p.numel() for p in model.parameters())
+        print(f"Total Parameters: {total_params}")
+        self.assertTrue(total_params <= 20000, f"Total parameters exceed 20k! ({total_params})")
 
 if __name__ == "__main__":
-    main()
+    unittest.main()
 
